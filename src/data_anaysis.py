@@ -184,3 +184,20 @@ def analyze_class_relationships(df):
             plt.ylabel('Count')
             plt.show()
 
+def analyze_time_since_signup_class_relationship(df):
+    """
+    Analyzes the relationship between the time since signup and the class (fraudulent or not).
+
+    Args:
+        df (pd.DataFrame): The input DataFrame with 'time_since_signup' and 'class' columns.
+    """
+    if 'time_since_signup' in df.columns and 'class' in df.columns:
+        # Create a box plot to visualize the distribution
+        plt.figure(figsize=(8, 6))
+        sns.boxplot(x='class', y=df['time_since_signup'].dt.total_seconds() / (24 * 3600), data=df) # Convert to days for plotting
+        plt.title('Time to Purchase Distribution by Class')
+        plt.xlabel('Class (0: Non-Fraud, 1: Fraud)')
+        plt.ylabel('Time to Purchase (Days)')
+        plt.show()
+    else:
+        print("Error: 'time_to_purchase' or 'class' columns not found in DataFrame.")
